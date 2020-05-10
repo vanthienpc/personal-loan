@@ -63,7 +63,7 @@ const RepayConfirm: React.FC<PropsFromRedux> = ({ loans, record, modalClose, loa
     const data = {
       id: loan.id,
       amount: Number(loan.amount),
-      paid: remainAmount(loan.paid, loan.term),
+      paid: remainAmount(Number(loan.paid), loan.term),
       term: loan.term,
       status: loan.status,
       created_at: loan.createdAt,

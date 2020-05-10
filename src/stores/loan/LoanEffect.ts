@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+// @ts-ignore
 import environment from 'environment';
 import HttpUtility from 'utilities/HttpUtility';
 import HttpErrorResponseModel from 'models/HttpErrorResponseModel';
