@@ -5,19 +5,18 @@ import { Provider } from 'react-redux';
 import store from 'stores/rootStore';
 import IStore from 'models/IStore';
 import App from 'views/App';
-import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 type Props = {
   store: Store<IStore>;
 };
 
-const Root: React.SFC<Props> = ({ store }) => (
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+const Root: React.FC<Props> = ({ store }) => (
+  // <React.StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>
+  // </React.StrictMode>
 );
 
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));

@@ -5,11 +5,11 @@ import { Switch, Route } from 'react-router-dom';
 
 const Home = React.lazy(() => import('./pages/Home'));
 
-const App: React.SFC = () => (
-  <ConnectedRouter history={history}>
+const App: React.FC = (): JSX.Element => (
+  <ConnectedRouter history={history} noInitialPop>
     <React.Suspense fallback="loading...">
       <Switch>
-        <Route exact={true} path="/" component={Home} />
+        <Route exact path="/" component={Home} />
       </Switch>
     </React.Suspense>
   </ConnectedRouter>

@@ -33,6 +33,43 @@ export default class HttpUtility {
     );
   }
 
+  public static async post(
+    endpoint: string,
+    data?: any,
+  ): Promise<AxiosResponse | HttpErrorResponseModel> {
+    const config: AxiosRequestConfig | undefined = data ? { data } : undefined;
+
+    return HttpUtility._request(
+      {
+        url: endpoint,
+        method: RequestMethod.Post,
+      },
+      config,
+    );
+  }
+
+  public static async put(
+    endpoint: string,
+    data?: any,
+  ): Promise<AxiosResponse | HttpErrorResponseModel> {
+    const config: AxiosRequestConfig | undefined = data ? { data } : undefined;
+
+    return HttpUtility._request(
+      {
+        url: endpoint,
+        method: RequestMethod.Put,
+      },
+      config,
+    );
+  }
+
+  public static async delete(endpoint: string): Promise<AxiosResponse | HttpErrorResponseModel> {
+    return HttpUtility._request({
+      url: endpoint,
+      method: RequestMethod.Delete,
+    });
+  }
+
   private static async _request(
     restRequest: Partial<Request>,
     config?: AxiosRequestConfig,
@@ -46,10 +83,6 @@ export default class HttpUtility {
         ...config,
         method: restRequest.method as Method,
         url: restRequest.url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          ...config?.headers,
-        },
       };
 
       const [axiosResponse] = await Promise.all([axios(axiosRequestConfig), HttpUtility._delay]);
