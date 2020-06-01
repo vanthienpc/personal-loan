@@ -4,6 +4,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import IStore from 'models/IStore';
 import * as LoanEffect from './LoanEffect';
 import { toggleLoading } from '../loading/LoadingAction';
+import HttpErrorResponseModel from 'models/HttpErrorResponseModel';
 
 export const LOAN_FETCH_REQUEST = 'LOAN_FETCH_REQUEST';
 export const LOAN_FETCH_SUCCESS = 'LOAN_FETCH_SUCCESS';
@@ -35,12 +36,14 @@ const actionCreators = createActions(
 export const loanFetch = () => async (dispatch: ThunkDispatch<IStore, unknown, Action<string>>) => {
   dispatch(actionCreators.loanFetchRequest());
   dispatch(toggleLoading(true));
-  try {
-    const response = await LoanEffect.loanFetchRequest();
-    dispatch(actionCreators.loanFetchSuccess(response));
+
+  const response = await LoanEffect.loanFetchRequest();
+
+  if (response instanceof HttpErrorResponseModel) {
+    dispatch(actionCreators.loanFetchFailure(response));
     dispatch(toggleLoading(false));
-  } catch (error) {
-    dispatch(actionCreators.loanFetchFailure(error));
+  } else {
+    dispatch(actionCreators.loanFetchSuccess(response));
     dispatch(toggleLoading(false));
   }
 };
@@ -49,11 +52,13 @@ export const loanCreate = (data: any) => async (
   dispatch: ThunkDispatch<IStore, unknown, Action<string>>,
 ) => {
   dispatch(actionCreators.loanCreateRequest());
-  try {
-    const response = await LoanEffect.loanCreateRequest(data);
+
+  const response = await LoanEffect.loanCreateRequest(data);
+
+  if (response instanceof HttpErrorResponseModel) {
+    dispatch(actionCreators.loanCreateFailure(response));
+  } else {
     dispatch(actionCreators.loanCreateSuccess(response));
-  } catch (error) {
-    dispatch(actionCreators.loanCreateFailure(error));
   }
 };
 
@@ -61,10 +66,12 @@ export const loanRepay = (data: any) => async (
   dispatch: ThunkDispatch<IStore, unknown, Action<string>>,
 ) => {
   dispatch(actionCreators.loanRepayRequest());
-  try {
-    const response = await LoanEffect.loanRepayRequest(data);
+
+  const response = await LoanEffect.loanRepayRequest(data);
+
+  if (response instanceof HttpErrorResponseModel) {
+    dispatch(actionCreators.loanRepayFailure(response));
+  } else {
     dispatch(actionCreators.loanRepaySuccess(response));
-  } catch (error) {
-    dispatch(actionCreators.loanRepayFailure());
   }
 };

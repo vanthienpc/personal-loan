@@ -12,17 +12,9 @@ const reducerMap: ReducerMap<ILoanState, any> = {
     ...state,
     items: payload,
   }),
-  [LoanAction.LOAN_FETCH_FAILURE]: (state, { error }): ILoanState => ({
-    ...state,
-    error,
-  }),
   [LoanAction.LOAN_CREATE_SUCCESS]: (state, { payload }): ILoanState => ({
     ...state,
     items: [...state.items, payload],
-  }),
-  [LoanAction.LOAN_CREATE_FAILURE]: (state, { error }): ILoanState => ({
-    ...state,
-    error,
   }),
   [LoanAction.LOAN_REPAY_SUCCESS]: (state, { payload }): ILoanState => ({
     ...state,
@@ -35,10 +27,6 @@ const reducerMap: ReducerMap<ILoanState, any> = {
             repay_history: payload.repay_history,
           },
     ),
-  }),
-  [LoanAction.LOAN_REPAY_FAILURE]: (state, { error }): ILoanState => ({
-    ...state,
-    error,
   }),
 };
 
