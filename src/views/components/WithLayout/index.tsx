@@ -15,7 +15,7 @@ const withLayout = <P extends object>(ComposedComponent: React.ComponentType<P>)
       <Content>
         <ComposedComponent {...(props as P)} />
       </Content>
-      <Footer>MiniAspire @2019 Created by Thien Vo</Footer>
+      <Footer>@2019 Created by Thien Vo</Footer>
     </Layout>
   );
 
