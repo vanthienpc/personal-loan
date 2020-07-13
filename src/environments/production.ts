@@ -1,6 +1,6 @@
 import environment, { Environment } from './base';
 
-const baseApi = 'http://localhost:3001';
+const baseApi = 'https://json-server.vanthienpc.now.sh';
 const env = environment(baseApi);
 
 const productionEnv: Environment = {
